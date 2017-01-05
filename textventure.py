@@ -27,7 +27,7 @@ class gameItem(object):
     Uses should NOT be set to false!
     Description is self-explainatory
     """
-    def __init__(self, name = None, effect = None, uses = None, description = None):
+    def __init__(self, name = None, effect = None, uses = None, description = None, movable = True, can_hold = True):
         """
         This is just an initialzer with a docstring
         """
@@ -35,6 +35,8 @@ class gameItem(object):
         self.effect = effect
         self.uses = uses
         self.description = description
+        self.movable = movable
+        self.can_hold = can_hold
     def __repr__(self):
         """
         Prints out an item's attributes in an actually readable format
@@ -223,6 +225,15 @@ class allRooms(object):
         For random generation of a map
         Will eventually use MySQL to find item templates
         """
+        possible = [False, Room(in_room = False)]            # Possibilities for a room ; will be updated soon 
+        size = (random.randint(10,25),random.randint(10,25)) # Make the map size anywhere from 10x10 to 25x25
+        new_rooms = []                                       # An empty list that new rooms that will be created
+        for x in range(size[0]):                             # Start a for loop
+            row = []                                         # Make an empty list that will be appended to
+            for y in range(size[1]):                         # Start another for loop
+                row.append(random.choice(possible))          # Append another room or empty space to the current row
+            new_rooms.append(row)                            # Append the row to new_rooms
+        self.rooms = new_rooms                               # Assign new_rooms to the attribute rooms
 class NoRoom(Exception):
     """
     An exception for the absence of a room to enter
