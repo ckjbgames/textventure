@@ -1,0 +1,17 @@
+~~CHANGELOG FOR TEXTVENTURE v0.0.0.0.01~~
+Summary:
+-Created some basic mechanics of the game:
+--Classes (no, not player classes!):
+---In-game items:
+----Effects of said items (a separate class)
+---An inventory system
+---Rooms
+---A sort of "map" of rooms
+--Methods of those classes:
+---Methods of in-game items:
+----Display info on the item
+----Return only the name of the item (only used for the inventory)
+---Inventory:
+----Adding items
+----Viewing items
+----Removing items from the inventory
