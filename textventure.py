@@ -3,7 +3,7 @@
 #################
 ## Textventure ##
 ## ckjbgames ####
-## 2016 #########
+## 2017 #########
 #################
 
 ## Imports
@@ -104,11 +104,9 @@ class Room(object):
     A room with a description, other rooms that it leads to,
     and contents
     name is self-explainatory
-    items_room is a list containing instances of the gameItem class that are in a room
+    items_room is a dictionary containing instances of the gameItem class that are in a room
     If items_room is set to false, the room contains no items.
     description is also self-explainatory
-    All attributes that are directions should be other instances of Room that this room leads to
-    If their value is False (the default), there are no rooms that can be entered this way
     in_room is a flag for if you are in the room or not
     """
     def __init__(self, name = None, items_room = False, description = None, in_room = False):
@@ -234,6 +232,16 @@ class allRooms(object):
                 row.append(random.choice(possible))          # Append another room or empty space to the current row
             new_rooms.append(row)                            # Append the row to new_rooms
         self.rooms = new_rooms                               # Assign new_rooms to the attribute rooms
+    def pickup(self, item_name, inventory):
+        """
+        Pick up an item
+        item_name is a string and the name of an item
+        inventory is the inventory name
+        """
+        try:
+            inventory.player_inventory[item_name] = self.rooms[self.coords[0]][self.coords[1]].items_room.pop(item_name)
+        except NameError:
+            return 'That item is not here!'
 class NoRoom(Exception):
     """
     An exception for the absence of a room to enter
