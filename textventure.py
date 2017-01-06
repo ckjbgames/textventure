@@ -135,8 +135,6 @@ class allRooms(object):
         """
         self.rooms = rooms
         self.coords = coords
-        if self.rooms[self.coords[0]][self.coords[1]].in_room != True:
-            self.rooms[self.coords[0]][self.coords[1]].in_room = True
     def __repr__(self):
         """
         Kind of displays a map
