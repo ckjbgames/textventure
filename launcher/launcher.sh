@@ -10,4 +10,7 @@ login() {
     reset
     if [$username -ne '']; then
         echo "$login2"
-        if [$
+        read -s password
+        if [$password -ne '']; then
+            userinfo=python login.py 
+}
