@@ -11,6 +11,10 @@ login() {
     if [$username -ne '']; then
         echo "$login2"
         read -s password
+        reset
         if [$password -ne '']; then
-            userinfo=python login.py 
+            # Note: Please insert your own database names here
+            # and modify to comply with your database setup.
+            query=printf -v 'SELECT handle 
+            mysql -h localhost -u username -p password -D db_name       
 }
