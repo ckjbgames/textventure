@@ -15,6 +15,17 @@ login() {
         if [$password -ne '']; then
             # Note: Please insert your own database names here
             # and modify to comply with your database setup.
-            query=printf -v 'SELECT handle 
-            mysql -h localhost -u username -p password -D db_name       
+            query=printf -v 'SELECT username handle userid FROM users WHERE\
+            username="%s" AND password="%s"' $username $password
+            info=$(mysql -h localhost -u username -p password -D db_name -s -N -e "$query")
+            return $info
+        else
+            return 0
+        fi
+    else
+        return 0
+    fi
+}
+help() {
+    cat ../help/launcher.txt | more
 }
