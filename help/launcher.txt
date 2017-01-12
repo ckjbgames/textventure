@@ -1,0 +1,31 @@
+~~~~~~~~~~~~~~~~LAUNCHER HELP~~~~~~~~~~~~~~~~
+->This is the game launcher for textventure.+
+->The first screen should look like this:   +
+(L) Log In                                  +
+                                            +
+(Q) Quit                                    +
+                                            +
+(H) Help                                    +
+                                            +
+                                            +
+                                            +
+->You must enter one of the letters in the  +
+--parentheses to make a selection.          +
+->If you select L, you will be prompted     +
+--to enter your username & password.        +
+->If you select Q, the launcher quits.      +
+->If you select H, you will see this screen.+
+->Once you log in, you will see this:       +
+(P) Play textventure                        +
+                                            +
+(Q) Quit                                    +
+                                            +
+(H) Help                                    +
+                                            +
+                                            +
+                                            +
+->Q and H both have the same effect as      +
+--earlier.                                  +
+->If you select P, textventure starts.      +
+->Happy gaming!                             +
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
