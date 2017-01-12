@@ -256,9 +256,10 @@ class Controller(object):
     def loadgame(self,inventory = None,allrooms = None,filename = None):
         """
         Loads a game with pickle.load
-        A save file should be in /var/games/textventure/files/saves
+        A save file should be in the files/saves directory
         The extension doesn't matter, but I have decided to use *.pickle
         """
+        print 'Loading game...'
         try:
             with open(filename,'r') as file_object:
                 self.game = pickle.load(file_object)
@@ -271,9 +272,10 @@ class Controller(object):
         """
         Save a game to a save file
         A save file, as said in the docstring for loadgame(),
-        should be in /var/games/files/saves
+        should be in files/games
         Extension, as said, will be *.pickle
         """
+        print 'Saving game...'
         try:
             file_object = open(filename,'w')
             with open(filename,'a') as f:
