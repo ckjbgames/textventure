@@ -2,7 +2,7 @@
 # textventure-launcher.sh
 prompt1='(L) Log In\n\n(Q) Quit\n\n(H) Help\n\n\n'
 prompt2='(P) Play Textventure\n\n(Q) Quit\n\n(H) Help\n\n\n'
-login1='Please enter your username (email address). Abort with a blank entry.\n'
+login1='Please enter your username . Abort with a blank entry.\n'
 login2='Please enter your password. Abort with a blank entry.\n'
 login() {
     echo "$login1"
@@ -28,4 +28,11 @@ login() {
 }
 help() {
     cat ../help/launcher.txt | more
+}
+launchgame() {
+    # Pass username as parameter 1
+    # and password as parameter 2
+    # This is why there is a launcher
+    python ../textventure.py "$1" "$2"
+    exit
 }
