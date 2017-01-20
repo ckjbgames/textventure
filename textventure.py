@@ -117,6 +117,11 @@ class Room(object):
         self.items_room = items_room
         self.description = description
         self.in_room = in_room
+    def changeFlag(self, val):
+        """
+        Change in_room flag
+        """
+        self.in_room = val
 class allRooms(object):
     """
     A map-type arrangement of all rooms as a 2-dimensional list/array
@@ -177,8 +182,8 @@ class allRooms(object):
         if direction == 8:
             try:
                 if isinstance(self.rooms[self.coords[0] - 1][self.coords[1]],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].in_room = False
-                    self.rooms[self.coords[0] - 1][self.coords[1]].in_room = True
+                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
+                    self.rooms[self.coords[0] - 1][self.coords[1]].changeFlag(True)
                     self.coords =(self.coords[0] - 1,self.coords[1])
                 else:
                     raise NoRoom
@@ -187,8 +192,8 @@ class allRooms(object):
         elif direction == 2:
             try:
                 if isinstance(self.rooms[self.coords[0] + 1][self.coords[1]],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].in_room = False
-                    self.rooms[self.coords[0] + 1][self.coords[1]].in_room = True
+                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
+                    self.rooms[self.coords[0] + 1][self.coords[1]].changeFlag(True)
                     self.coords = (self.coords[0] + 1,self.coords[1]) 
                 else:
                     raise NoRoom
@@ -197,8 +202,8 @@ class allRooms(object):
         elif direction == 4:
             try:
                 if isinstance(self.rooms[self.coords[0]][self.coords[1] - 1],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].in_room = False
-                    self.rooms[self.coords[0]][self.coords[1] - 1].in_room = True
+                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
+                    self.rooms[self.coords[0]][self.coords[1] - 1].changeFlag(True)
                     self.coords = (self.coords[0],self.coords[1] - 1)
                 else:
                     raise NoRoom
@@ -207,8 +212,8 @@ class allRooms(object):
         elif direction == 6:
             try:
                 if isinstance(self.rooms[self.coords[0]][self.coords[1] + 1],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].in_room = False
-                    self.rooms[self.coords[0]][self.coords[1] + 1].in_room = True
+                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
+                    self.rooms[self.coords[0]][self.coords[1] + 1].changeFlag(True)
                     self.coords =(self.coords[0], self.coords[1] + 1)
                 else:
                     raise NoRoom
