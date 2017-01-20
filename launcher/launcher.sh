@@ -33,6 +33,6 @@ launchgame() {
     # Pass username as parameter 1
     # and password as parameter 2
     # This is why there is a launcher
-    python ../textventure.py "$1" "$2"
+    python ../bin/textventure.py "$1" "$2"
     exit
 }
