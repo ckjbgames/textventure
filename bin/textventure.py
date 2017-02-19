@@ -11,8 +11,8 @@ import random  # Map randomization, eventually
 import pickle  # For game saving
 import sys     # Various uses
 import socket  # Eventually for connections
-import _mysql  # For connecting to MySQL
-import MySQLdb # Also for MySQL
+import MySQLdb # For connecting to MySQL
+import json    # Decode JSON in MySQL
 ## Classes
 class gameItem(object):
     """
