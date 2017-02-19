@@ -120,6 +120,7 @@ class Room(object):
     def changeFlag(self, val):
         """
         Change in_room flag
+        Possible fix for an issue
         """
         self.in_room = val
 class allRooms(object):
