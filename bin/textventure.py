@@ -13,6 +13,8 @@ import sys     # Various uses
 import socket  # Eventually for connections
 import MySQLdb # For connecting to MySQL
 import json    # Decode JSON in MySQL
+import os      # Save files, etc.
+import tty     # "Press any key to continue..."
 ## Classes
 class gameItem(object):
     """
@@ -152,12 +154,12 @@ class allRooms(object):
         for row in self.rooms:
             for room in row:
                 if room == False:
-                    map_of = map_of + ' '
+                    map_of += ' '
                 elif room.in_room == True:
-                    map_of = map_of + '@'
+                    map_of += '@'
                 else:
-                    map_of = map_of + '#'
-            map_of = map_of + '\r\n'
+                    map_of += '#'
+            map_of += '\r\n'
         return map_of
     def move(self, direction = 8):
         """
@@ -236,16 +238,6 @@ class allRooms(object):
                 row.append(random.choice(possible))          # Append another room or empty space to the current row
             new_rooms.append(row)                            # Append the row to new_rooms
         self.rooms = new_rooms                               # Assign new_rooms to the attribute rooms
-    def pickup(self, item_name, inventory):
-        """
-        Pick up an item
-        item_name is a string and the name of an item
-        inventory is the inventory name
-        """
-        try:
-            inventory.player_inventory[item_name] = self.rooms[self.coords[0]][self.coords[1]].items_room.pop(item_name)
-        except NameError:
-            return 'That item is not here!'
 class NoRoom(Exception):
     """
     An exception for the absence of a room to enter
@@ -253,41 +245,61 @@ class NoRoom(Exception):
     pass
 class Controller(object):
     """
-    Loads and saves games using pickle
-    In the start of the main section,
-    an instance of Controller is created
+    Purposes:
+     1. Loads and saves games using pickle
+    Store save files by default in
+    /var/games/textventure/saves
+    See "Installation" in the Wiki for more
+     2. Performs some functions having to do with
+    interactions between the player and the environment
+     3. Executes textventure commands the player inputs
     """
     def __init__(self,inventory = None,allrooms = None):
         self.game = [inventory,allrooms]
-    def loadgame(self,inventory = None,allrooms = None,filename = None):
+    def loadgame(self,username = None):
         """
         Loads a game with pickle.load
-        A save file should be in the files/saves directory
+        A save file should be in the /var/games/textventure/saves directory
         The extension doesn't matter, but I have decided to use *.pickle
         """
         print 'Loading game...'
         try:
-            with open(filename,'r') as file_object:
-                self.game = pickle.load(file_object)
-            inventory = self.game[0]
-            allrooms = self.game[1]
-            return "Success!"
+            with open('/var/games/textventure/saves/%s.pickle'%(username),'r') as f:
+                self.game = pickle.load(f)
         except EnvironmentError:
-            return "Loading the save wasn't successful. Sorry about that."
-    def savegame(self,inventory = None,allrooms = None,filename = None):
+            print 'The game could not be loaded. Sorry about that.'
+            pressanykey()
+            sys.exit()
+        else:
+            print 'Success!'
+            return self.game
+    def savegame(self,username = None):
         """
-        Save a game to a save file
-        A save file, as said in the docstring for loadgame(),
-        should be in files/games
-        Extension, as said, will be *.pickle
+        Save a game with pickle.dump
+        Save file path is mentioned in the docs of loadgame()
         """
         print 'Saving game...'
         try:
-            file_object = open(filename,'w')
-            with open(filename,'a') as f:
+            with open('/var/games/textventure/saves/%s.pickle'%(username),'w') as f:
                 pickle.dump(self.game,f)
-            return "Success!"
         except EnvironmentError:
-            return "Saving the game wasn't successful. Sorry about that."
+            print 'The game could not be loaded. Sorry about that.'
+            pressanykey()
+            sys.exit()
+        else:
+            print 'Success!'
+## Functions
+def pressanykey():
+    print 'Press any key to continue...'
+    tty.setraw(1)
+    sys.stdin.read(1)
 if __name__ == '__main__':
-    inv = Inventory()
+    control=Controller('','')
+    username=sys.argv[1]
+    savepath="/var/games/textventure/saves/%s.pickle"%(username)
+    if os.path.exists(savepath):
+        inv,allrooms=control.loadgame(username)
+    else:
+        open(savepath,'a').close() # .close() could be omitted, but only in CPython.
+                                   # It was kept so it will work in other implementations.
+    
