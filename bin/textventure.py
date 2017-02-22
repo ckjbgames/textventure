@@ -293,6 +293,7 @@ def pressanykey():
     print 'Press any key to continue...'
     tty.setraw(1)
     sys.stdin.read(1)
+## Main Program
 if __name__ == '__main__':
     control=Controller('','')
     username=sys.argv[1]
