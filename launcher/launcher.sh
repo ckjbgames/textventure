@@ -1,7 +1,5 @@
 #!/bin/bash
 # textventure-launcher.sh
-prompt1="(L) Log In\n\n(Q) Quit\n\n(H) Help\n\n\n"
-prompt2="(P) Play Textventure\n\n(Q) Quit\n\n(H) Help\n\n\n"
 login() {
     echo "Please enter your username. Abort with a blank entry.\n"
     read username
@@ -15,7 +13,7 @@ login() {
             # and modify to comply with your database setup.
             # The example query that I added is probably not your setup.
             query=printf -v 'SELECT username handle userid FROM users WHERE\
-            username="%s" AND password="%s"' $username $password
+            handle="%s" AND username="%s"' $username $password
             info=$(mysql -h localhost -u username -p password -D db_name -s -N -e "$query")
             return $info
         else
@@ -42,4 +40,42 @@ mysql_escape() {
     # *WORK IN PROGRESS*
     escaped=$(echo $1 | sed 's/[\]//g')
     return $escaped
+}
+menu1() {
+    reset
+    local menu=( 'Login' 'Help' 'Quit' )
+    select $option in $menu; do
+        case $option in
+            1 ) local logininfo=$(login)
+                if [ ! $logininfo -o -z $logininfo ]; then
+                    echo 'That is not a valid login.'
+                    echo 'Sorry about that.'
+                    sleep 3
+                    menu1
+                else
+                    menu2 $logininfo
+                fi ;;
+            2 ) help
+                menu1 ;;
+            3 ) exit ;;
+            * ) printf "I don't know how to %i." $option
+                sleep 3
+                menu1 ;;
+        esac
+    done
+}
+menu2() {
+    reset
+    local menu=( 'Play textventure' 'Help' 'Quit' )
+    select $option in $menu; do
+        case $option in
+            1 ) launchgame $1 ;;
+            2 ) help
+                menu2 $1 ;;
+            3 ) exit ;;
+            * ) printf "I don't know how to %i." $option
+                sleep 3
+                menu2 $1 ;;
+        esac
+    done
 }
