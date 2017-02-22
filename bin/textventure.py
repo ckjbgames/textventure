@@ -283,7 +283,7 @@ class Controller(object):
             with open('/var/games/textventure/saves/%s.pickle'%(username),'w') as f:
                 pickle.dump(self.game,f)
         except EnvironmentError:
-            print 'The game could not be loaded. Sorry about that.'
+            print 'The game could not be saved. Sorry about that.'
             pressanykey()
             sys.exit()
         else:
