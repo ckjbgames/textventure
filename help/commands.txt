@@ -1,0 +1,4 @@
+l: Look around the room you are in.
+-Shows a summary of the room you are in.
+
+
