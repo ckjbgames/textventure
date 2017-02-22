@@ -68,7 +68,7 @@ class Inventory(object):
     """
     def __init__(self):
         """
-        Initialize the inventory to an empty list
+        Initialize the inventory to an empty dictionary
         """
         self.player_inventory = {}
     def __repr__(self):
