@@ -125,6 +125,9 @@ class Room(object):
         Possible fix for an issue
         """
         self.in_room = val
+    def toJSON(self):
+        return json.dumps(self,default=lambda o: o.__dict__,
+                          sort_keys=True)
 class allRooms(object):
     """
     A map-type arrangement of all rooms as a 2-dimensional list/array
@@ -159,7 +162,7 @@ class allRooms(object):
                     map_of += '@'
                 else:
                     map_of += '#'
-            map_of += '\r\n'
+            map_of += '\r\n'                # In case of Windows
         return map_of
     def move(self, direction = 8):
         """
@@ -182,7 +185,7 @@ class allRooms(object):
         A map of the game kind of looks like
         corridors in Nethack :)
         """
-        if direction == 8:
+        if direction == 8 or direction == 'n':
             try:
                 if isinstance(self.rooms[self.coords[0] - 1][self.coords[1]],Room):
                     self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
@@ -192,7 +195,7 @@ class allRooms(object):
                     raise NoRoom
             except (IndexError,NoRoom,AttributeError):
                 return "There is no room to enter in this direction!"
-        elif direction == 2:
+        elif direction == 2 or direction == 's':
             try:
                 if isinstance(self.rooms[self.coords[0] + 1][self.coords[1]],Room):
                     self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
@@ -202,7 +205,7 @@ class allRooms(object):
                     raise NoRoom
             except (IndexError,NoRoom,AttributeError):
                 return "There is no room to enter in this direction!"
-        elif direction == 4:
+        elif direction == 4 or direction == 'w':
             try:
                 if isinstance(self.rooms[self.coords[0]][self.coords[1] - 1],Room):
                     self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
@@ -212,7 +215,7 @@ class allRooms(object):
                     raise NoRoom
             except (IndexError,NoRoom,AttributeError):
                 return "There is no room to enter in this direction!"
-        elif direction == 6:
+        elif direction == 6 or direction == 'e':
             try:
                 if isinstance(self.rooms[self.coords[0]][self.coords[1] + 1],Room):
                     self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
@@ -303,4 +306,3 @@ if __name__ == '__main__':
     else:
         open(savepath,'a').close() # .close() could be omitted, but only in CPython.
                                    # It was kept so it will work in other implementations.
-    
