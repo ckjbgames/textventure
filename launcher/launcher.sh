@@ -32,7 +32,7 @@ launchgame() {
     # and user ID as parameter 2
     # This is why there is a launcher
     python ../bin/textventure.py "$1" "$2"
-    exit
+    exit 0
 }
 mysql_escape() {
     # This is to play it safe
