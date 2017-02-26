@@ -7,7 +7,7 @@
 #################
 
 ## Imports
-import random  # Map randomization, eventually
+import random  # Map randomization
 import pickle  # For game saving
 import sys     # Various uses
 import socket  # Eventually for connections
@@ -61,6 +61,13 @@ class gameItem(object):
         inventory listings)
         """
         return self.name
+    def MySQLformat(self):
+        return [self.name,
+                self.effect,
+                self.uses,
+                self.description,
+                self.movable,
+                self.can_hold]
 class Inventory(object):
     """
     The player's inventory
