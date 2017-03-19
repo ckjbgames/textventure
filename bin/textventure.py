@@ -239,15 +239,15 @@ class allRooms(object):
         For random generation of a map
         Will eventually use MySQL to find item templates
         """
-        possible = [False, Room(in_room = False)]            # Possibilities for a room ; will be updated soon 
-        size = (random.randint(10,25),random.randint(10,25)) # Make the map size anywhere from 10x10 to 25x25
-        new_rooms = []                                       # An empty list that new rooms that will be created
-        for x in range(size[0]):                             # Start a for loop
-            row = []                                         # Make an empty list that will be appended to
-            for y in range(size[1]):                         # Start another for loop
-                row.append(random.choice(possible))          # Append another room or empty space to the current row
-            new_rooms.append(row)                            # Append the row to new_rooms
-        self.rooms = new_rooms                               # Assign new_rooms to the attribute rooms
+        possible = [False, Room('spam',False,'Too many eggs!',False)]            # Possibilities for a room; will be updated soon 
+        size = (random.randint(10,25),random.randint(10,25))                     # Make the map size anywhere from 10x10 to 25x25
+        new_rooms = []                                                           # An empty list that new rooms that will be created
+        for x in range(size[0]):                                                 # Start a for loop
+            row = []                                                             # Make an empty list that will be appended to
+            for y in range(size[1]):                                             # Start another for loop
+                row.append(random.choice(possible))                              # Append another room or empty space to the current row
+            new_rooms.append(row)                                                # Append the row to new_rooms
+        self.rooms = new_rooms                                                   # Assign new_rooms to the attribute self.rooms
 class NoRoom(Exception):
     """
     An exception for the absence of a room to enter
@@ -266,6 +266,7 @@ class Controller(object):
     """
     def __init__(self,inventory = None,allrooms = None):
         self.game = [inventory,allrooms]
+        self.inv,self.allrooms=
     def loadgame(self,username = None):
         """
         Loads a game with pickle.load
@@ -276,6 +277,7 @@ class Controller(object):
         try:
             with open('/var/games/textventure/saves/%s.pickle'%(username),'r') as f:
                 self.game = pickle.load(f)
+                self.inv,self.allrooms=self.game
         except EnvironmentError:
             print 'The game could not be loaded. Sorry about that.'
             pressanykey()
@@ -292,12 +294,36 @@ class Controller(object):
         try:
             with open('/var/games/textventure/saves/%s.pickle'%(username),'w') as f:
                 pickle.dump(self.game,f)
+                print 'Game saved!'
+                quitconfirm=raw_input('Do you wish to quit (y/n)? ')
+                if quitconfirm[0] == 'y' or quitconfirm[0] == 'Y':
+                    pressanykey()
+                    sys.exit()
+                elif quitconfirm[0] == 'n' or quitconfirm[0] == 'N':
+                    print 'Please do continue, good player!'
+                else:
+                    print "I don't think that's a yes or a no."
+                    pressanykey()
         except EnvironmentError:
             print 'The game could not be saved. Sorry about that.'
             pressanykey()
             sys.exit()
         else:
             print 'Success!'
+    def commands(self):
+        """
+        Interpret commands.
+        It's actually pretty simple.
+        """
+        prompt='textventure$ '
+        command_list=['l','i','p','d','m','u','h','S']
+        while True:
+            typed=raw_input(prompt).split(' ')
+            command=typed[0]
+            arg=typed[1:]
+            if command in command_list:
+                if command == 'l':
+                    print self.allrooms.rooms[self.allrooms.coords[1]][self.allrooms.coords[0]].
 ## Functions
 def pressanykey():
     print 'Press any key to continue...'
