@@ -266,7 +266,7 @@ class Controller(object):
     """
     def __init__(self,inventory = None,allrooms = None):
         self.game = [inventory,allrooms]
-        self.inv,self.allrooms=
+        self.inv,self.allrooms=self.game
     def loadgame(self,username = None):
         """
         Loads a game with pickle.load
