@@ -266,7 +266,7 @@ class Controller(object):
     """
     def __init__(self,inventory = None,allrooms = None):
         self.game = [inventory,allrooms]
-        self.inv,self.allrooms=
+        self.inv,self.allrooms=self.game
     def loadgame(self,username = None):
         """
         Loads a game with pickle.load
@@ -275,7 +275,7 @@ class Controller(object):
         """
         print 'Loading game...'
         try:
-            with open('/var/games/textventure/saves/%s.pickle'%(username),'r') as f:
+            with open('C:/textventure/saves/%s.pickle'%(username),'r') as f:
                 self.game = pickle.load(f)
                 self.inv,self.allrooms=self.game
         except EnvironmentError:
@@ -292,7 +292,7 @@ class Controller(object):
         """
         print 'Saving game...'
         try:
-            with open('/var/games/textventure/saves/%s.pickle'%(username),'w') as f:
+            with open('C:/textventure/saves/%s.pickle'%(username),'w') as f:
                 pickle.dump(self.game,f)
                 print 'Game saved!'
                 quitconfirm=raw_input('Do you wish to quit (y/n)? ')
@@ -333,7 +333,7 @@ def pressanykey():
 if __name__ == '__main__':
     control=Controller('','')
     username=sys.argv[1]
-    savepath="/var/games/textventure/saves/%s.pickle"%(username)
+    savepath="C:/textventure/saves/%s.pickle"%(username)
     if os.path.exists(savepath):
         inv,allrooms=control.loadgame(username)
     else:
