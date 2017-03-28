@@ -12,3 +12,4 @@ REM textenture launcher
 EXIT /B %choice%
 :menu1
     SET options=Login Help Quit
+    SET chosen=%ERRORLEVEL
