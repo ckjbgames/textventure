@@ -1,6 +1,7 @@
 @ECHO OFF
 SETLOCAL EnableDelayedExpansion
 REM textenture launcher
+REM Make sure MySQL is in %PATH%.
 :select
     REM Equivalent to bash/ksh "select."
     SET count=1
@@ -12,4 +13,5 @@ REM textenture launcher
 EXIT /B %choice%
 :menu1
     SET options=Login Help Quit
-    SET chosen=%ERRORLEVEL
+    CALL :select %options%
+    SET chosen=%ERRORLEVEL%
