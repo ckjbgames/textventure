@@ -108,6 +108,9 @@ class Inventory(object):
             return self.player_inventory[item_name]
         except (NameError, KeyError):
             return "You don't have that item!"
+    def toJSON(self):
+        return json.dumps(self,default=lambda o: o.__dict__,
+                          sort_keys=True)
 class Room(object):
     """
     A room with a description, other rooms that it leads to,
