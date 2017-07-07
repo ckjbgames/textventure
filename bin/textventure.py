@@ -203,7 +203,7 @@ class allRooms(object):
                     self.coords =(self.coords[0] - 1,self.coords[1])
                 else:
                     raise NoRoom
-            except (IndexError,NoRoom,AttributeError):
+            except (IndexError,NoRoom):
                 return "There is no room to enter in this direction!"
         elif direction == 2 or direction == 's':
             try:
@@ -213,7 +213,7 @@ class allRooms(object):
                     self.coords = (self.coords[0] + 1,self.coords[1]) 
                 else:
                     raise NoRoom
-            except (IndexError,NoRoom,AttributeError):
+            except (IndexError,NoRoom):
                 return "There is no room to enter in this direction!"
         elif direction == 4 or direction == 'w':
             try:
@@ -223,7 +223,7 @@ class allRooms(object):
                     self.coords = (self.coords[0],self.coords[1] - 1)
                 else:
                     raise NoRoom
-            except (IndexError,NoRoom,AttributeError):
+            except (IndexError,NoRoom):
                 return "There is no room to enter in this direction!"
         elif direction == 6 or direction == 'e':
             try:
@@ -233,7 +233,7 @@ class allRooms(object):
                     self.coords =(self.coords[0], self.coords[1] + 1)
                 else:
                     raise NoRoom
-            except (IndexError,NoRoom,AttributeError):
+            except (IndexError,NoRoom):
                 return "There is no room to enter in this direction!"
         else:
             return "Sorry, that's not a valid direction."
