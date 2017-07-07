@@ -333,7 +333,7 @@ def pressanykey():
     tty.setraw(1)
     sys.stdin.read(1)
 ## Main Program
-if __name__ == '__main__':
+if __name__ == '__main__' and sys.argv[1] != 'test': # The second part is for debug only
     control=Controller('','')
     username=sys.argv[1]
     savepath="/var/games/textventure/saves/%s.pickle"%(username)
