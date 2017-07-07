@@ -129,12 +129,6 @@ class Room(object):
         self.items_room = items_room
         self.description = description
         self.in_room = in_room
-    def changeFlag(self, val):
-        """
-        Change in_room flag
-        Possible fix for an issue
-        """
-        self.in_room = val
     def toJSON(self):
         return json.dumps(self,default=lambda o: o.__dict__,
                           sort_keys=True)
