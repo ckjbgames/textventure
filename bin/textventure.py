@@ -326,7 +326,7 @@ class Controller(object):
             arg=typed[1:]
             if command in command_list:
                 if command == 'l':
-                    print self.allrooms.rooms[self.allrooms.coords[1]][self.allrooms.coords[0]].
+                    print self.allrooms.rooms[self.allrooms.coords[1]][self.allrooms.coords[0]].description
 ## Functions
 def pressanykey():
     print 'Press any key to continue...'
