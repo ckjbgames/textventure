@@ -146,7 +146,7 @@ class allRooms(object):
     The player will never actually view this unless they have a map
     There is a __repr__ method in case they do
     """
-    def __init__(self, rooms = [],coords = (0,0)):
+    def __init__(self, rooms = [],coords = [0,0]):
         """
         Initializer method
         rooms should be a list containing other lists, which
@@ -177,9 +177,6 @@ class allRooms(object):
     def move(self, direction = 8):
         """
         A method for moving to another room
-        Uses a try-except block for determining
-        if there is a room that can be entered from
-        the specified direction
         These directions are based on the number pad
         So:
         7   8   9
@@ -195,48 +192,7 @@ class allRooms(object):
         A map of the game kind of looks like
         corridors in Nethack :)
         """
-        if direction == 8 or direction == 'n':
-            try:
-                if isinstance(self.rooms[self.coords[0] - 1][self.coords[1]],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
-                    self.rooms[self.coords[0] - 1][self.coords[1]].changeFlag(True)
-                    self.coords =(self.coords[0] - 1,self.coords[1])
-                else:
-                    raise NoRoom
-            except (IndexError,NoRoom):
-                return "There is no room to enter in this direction!"
-        elif direction == 2 or direction == 's':
-            try:
-                if isinstance(self.rooms[self.coords[0] + 1][self.coords[1]],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
-                    self.rooms[self.coords[0] + 1][self.coords[1]].changeFlag(True)
-                    self.coords = (self.coords[0] + 1,self.coords[1]) 
-                else:
-                    raise NoRoom
-            except (IndexError,NoRoom):
-                return "There is no room to enter in this direction!"
-        elif direction == 4 or direction == 'w':
-            try:
-                if isinstance(self.rooms[self.coords[0]][self.coords[1] - 1],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
-                    self.rooms[self.coords[0]][self.coords[1] - 1].changeFlag(True)
-                    self.coords = (self.coords[0],self.coords[1] - 1)
-                else:
-                    raise NoRoom
-            except (IndexError,NoRoom):
-                return "There is no room to enter in this direction!"
-        elif direction == 6 or direction == 'e':
-            try:
-                if isinstance(self.rooms[self.coords[0]][self.coords[1] + 1],Room):
-                    self.rooms[self.coords[0]][self.coords[1]].changeFlag(False)
-                    self.rooms[self.coords[0]][self.coords[1] + 1].changeFlag(True)
-                    self.coords =(self.coords[0], self.coords[1] + 1)
-                else:
-                    raise NoRoom
-            except (IndexError,NoRoom):
-                return "There is no room to enter in this direction!"
-        else:
-            return "Sorry, that's not a valid direction."
+        pass
     def randomgen(self):
         """
         For random generation of a map
